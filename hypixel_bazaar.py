@@ -1,4 +1,6 @@
 import requests
+from dotenv import load_dotenv
+import os
 
 previousProduct = "ROTTEN_FLESH"
 
@@ -19,7 +21,8 @@ def start():
             else:
                 previousProduct = productInput
                 printProductInformation(singleSearch(productInput, hypixelBazaarClient()))
-        except:
+        except Exception as e:
+            print(e)
             continue
 
 def singleSearch(productName, response):
@@ -87,7 +90,8 @@ def printProductInformation(product):
         print()
 
 def hypixelBazaarClient():
-    response = requests.get("https://api.hypixel.net/skyblock/bazaar?key=76b6e4f7-54d3-40f8-83af-35090a6e024a")
+    load_dotenv()
+    response = requests.get("https://api.hypixel.net/skyblock/bazaar?key={}".format(os.getenv("API_KEY")))
 
     if (response.status_code != 200):
         raise Exception("API error")
