@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import jsonify
-import client
+from util import client
 
 app = Flask(__name__)
 
