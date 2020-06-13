@@ -1,6 +1,5 @@
 from flask import Flask
-from flask import jsonify
-from util import client
+from endpoint import SingleProduct
 
 app = Flask(__name__)
 
@@ -10,7 +9,7 @@ def hello_world():
 
 @app.route('/single/<productId>', methods=['GET'])
 def getSingleProduct(productId):
-    return(jsonify(client.hypixelBazaarClient()))
+    return(SingleProduct.getSingleProduct(productId))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
