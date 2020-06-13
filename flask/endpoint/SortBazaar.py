@@ -17,6 +17,6 @@ def sortBazaar():
 
         sortedProducts = sorted(productStore.values(), key=lambda x:x["profit"], reverse=True)
 
-        return(jsonify(sortedProducts[:10]))
+        return(jsonify(sortedProducts))
     except Exception as e:
         abort(500, e)
