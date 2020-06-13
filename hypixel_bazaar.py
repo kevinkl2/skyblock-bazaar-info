@@ -31,8 +31,6 @@ def singleSearch(productName, response):
 def sortBazaar(response):
     productStore = {}
 
-    print(len(response["products"]))
-
     for product in response["products"]:
         productInformation = generateProductInformation(response["products"][product])
         if (productInformation != None):
