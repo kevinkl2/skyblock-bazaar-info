@@ -12,8 +12,8 @@ def sortBazaar():
         for product in clientResponse["products"]:
             productInformation = ProductInformation.generateProductInformation(clientResponse["products"][product])
             if (productInformation != None):
-                if (productInformation["fulfilledBuyOrdersMovingWeek"] >= 1000000):
-                    productStore[product] = productInformation
+                # if (productInformation["fulfilledBuyOrdersMovingWeek"] >= 1000000):
+                productStore[product] = productInformation
 
         sortedProducts = sorted(productStore.values(), key=lambda x:x["profit"], reverse=True)
 
