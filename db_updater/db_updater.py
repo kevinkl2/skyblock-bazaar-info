@@ -1,8 +1,5 @@
 import requests
 import time
-from util import GetDBConnection
-
-statsDB = GetDBConnection.getDBConnection()
 
 while (True):
     time.sleep(60);
