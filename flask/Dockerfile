@@ -5,7 +5,7 @@ RUN cd /usr/local/bin
 RUN ln -s /usr/bin/python3 python
 RUN pip3 install --upgrade pip
 COPY . /app
-WORKDIR /app/flask
+WORKDIR /app
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python3"]
 CMD ["app.py"]
