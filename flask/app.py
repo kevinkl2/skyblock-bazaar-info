@@ -1,8 +1,15 @@
 from flask import Flask
+from flask_mysqldb import MySQL
 from endpoint import SingleProduct
 from endpoint import SortBazaar
 
 app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'mysql_db_container'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'example'
+app.config['MYSQL_DB'] = 'bazaar'
+
+mysql = MySQL(app)
 
 @app.route('/')
 def hello_world():
@@ -16,7 +23,7 @@ def getSingleProduct(productId):
 
 @app.route('/sortBazaar', methods=['GET'])
 def sortBazaar():
-    response = SortBazaar.sortBazaar()
+    response = SortBazaar.sortBazaar(mysql)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return(response)
 

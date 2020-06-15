@@ -1,14 +1,10 @@
+import requests
 import time
-import mysql.connector
+from util import GetDBConnection
 
-mydb = mysql.connector.connect(
-  host="mysql_db_container",
-  user="root",
-  password="example"
-)
+statsDB = GetDBConnection.getDBConnection()
 
-print(mydb, flush=True)
-
-while(True):
-    time.sleep(1)
-    print("test", flush=True)
+while (True):
+    time.sleep(60);
+    response = requests.get("http://web:5000/sortBazaar")
+    print("UPDATED")
