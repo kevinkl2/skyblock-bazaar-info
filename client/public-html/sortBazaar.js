@@ -1,3 +1,13 @@
+window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+  };
+
 var app = document.getElementById('root')
 
 var container = document.createElement('div')
@@ -7,7 +17,7 @@ app.appendChild(container)
 
 var request = new XMLHttpRequest()
 
-request.open('GET', 'https://flask.sphor.us/sortBazaar', true)
+request.open('GET', 'https://api.dev.bazaar.sphor.us/sortBazaar', true)
 
 request.onload = function() {
     var data = JSON.parse(this.response)
@@ -204,6 +214,71 @@ request.onload = function() {
 
             buyOrderTable.appendChild(tableBody)
 
+            var chart = document.createElement('canvas')
+            var request2 = new XMLHttpRequest()
+
+            request2.open('GET', 'https://api.life.bazaar.sphor.us/history/' + product.productName, true)
+            
+            request2.onload = function() {
+                var data = JSON.parse(this.response)
+
+                if (request.status >= 200 && request.status < 400) {
+                    var TIMESTAMPS = []
+                    var PROFIT = []
+                    data.forEach(entry => {
+                        TIMESTAMPS.push(entry.ts)
+                        PROFIT.push(entry.profit)
+                    })
+                    var config = {
+                        type: 'line',
+                        data: {
+                            labels: TIMESTAMPS,
+                            datasets: [{
+                                label: "Profit",
+                                backgroundColor: window.chartColors.red,
+                                borderColor: window.chartColors.red,
+                                data: PROFIT,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Chart.js Line Chart'
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Timestamp'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Profit'
+                                    }
+                                }]
+                            }
+                        }
+                    }
+                    window.myLine = new Chart(chart, config);
+                }
+            }
+
+            request2.send()
+
             container.appendChild(card)
             card.appendChild(productName)
             card.appendChild(informationTable)
@@ -211,6 +286,7 @@ request.onload = function() {
             card.appendChild(sellOrderTable)
             card.appendChild(buyOrderTitle)
             card.appendChild(buyOrderTable)
+            card.appendChild(chart)
         })
     } else {
         var errorMessage = document.createElement('marquee')

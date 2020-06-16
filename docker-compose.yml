@@ -1,6 +1,10 @@
 version: '3.7'
 
 services:
+  client:
+    build: ./client
+    ports:
+    - "80:80"
   web:
     build: ./flask
     environment:
