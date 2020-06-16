@@ -17,7 +17,7 @@ app.appendChild(container)
 
 var request = new XMLHttpRequest()
 
-request.open('GET', 'https://api.dev.bazaar.sphor.us/sortBazaar', true)
+request.open('GET', 'https://api.life.bazaar.sphor.us/sortBazaar', true)
 
 request.onload = function() {
     var data = JSON.parse(this.response)
