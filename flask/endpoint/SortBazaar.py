@@ -12,14 +12,19 @@ def sortBazaar(mysql):
         for product in clientResponse["products"]:
             productInformation = ProductInformation.generateProductInformation(clientResponse["products"][product])
             if (productInformation != None):
-                # if (productInformation["fulfilledBuyOrdersMovingWeek"] >= 1000000):
                 productStore[product] = productInformation
 
         insertToDb(productStore, mysql)
 
-        sortedProducts = sorted(productStore.values(), key=lambda x:x["profit"], reverse=True)
+        filteredProducts = {}
 
-        return(jsonify(sortedProducts))
+        for product in productStore:
+            if (productStore[product]["fulfilledBuyOrdersMovingWeek"] >= 1000000):
+                filteredProducts[product] = productStore[product]
+
+        sortedProducts = sorted(filteredProducts.values(), key=lambda x:x["profit"], reverse=True)
+
+        return(jsonify(sortedProducts[:50]))
     except Exception as e:
         abort(500, e)
 

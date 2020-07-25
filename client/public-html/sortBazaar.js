@@ -17,7 +17,7 @@ app.appendChild(container)
 
 var request = new XMLHttpRequest()
 
-request.open('GET', 'https://api.life.bazaar.sphor.us/sortBazaar', true)
+request.open('GET', 'https://api.dev.bazaar.sphor.us/sortBazaar', true)
 
 request.onload = function() {
     var data = JSON.parse(this.response)
@@ -217,7 +217,7 @@ request.onload = function() {
             var chart = document.createElement('canvas')
             var request2 = new XMLHttpRequest()
 
-            request2.open('GET', 'https://api.life.bazaar.sphor.us/history/' + product.productName, true)
+            request2.open('GET', 'https://api.dev.bazaar.sphor.us/historylimited/' + product.productName, true)
             
             request2.onload = function() {
                 var data = JSON.parse(this.response)

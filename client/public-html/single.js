@@ -1,6 +1,6 @@
 var request = new XMLHttpRequest()
 
-request.open('GET', 'https://api.life.bazaar.sphor.us/history/YOUNG_FRAGMENT', true)
+request.open('GET', 'https://api.dev.bazaar.sphor.us/historylimited/LEATHER', true)
 
 function toTimeZone(time) {
     // console.log(time)
@@ -57,19 +57,31 @@ request.onload = function() {
 				},
 				scales: {
 					xAxes: [{
-						display: true,
+                        display: true,
 						scaleLabel: {
 							display: true,
 							labelString: 'Timestamp'
 						}
 					}],
 					yAxes: [{
-						display: true,
+                        display: true,
 						scaleLabel: {
 							display: true,
 							labelString: 'Profit'
 						}
 					}]
+                }
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        enabled: true,
+                        mode: 'xy'
+                    }
                 }
             }
         }

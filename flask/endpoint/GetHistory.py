@@ -16,6 +16,7 @@ def selectFromDb(productId, mysql):
 
         cur.execute("SELECT * FROM `bazaar`.`productStats` WHERE `name`=%s", (productId,))
         result = cur.fetchall()
+        
         return(result)
     except Exception as e:
         print(e)

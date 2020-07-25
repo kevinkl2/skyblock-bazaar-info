@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from endpoint import SingleProduct
 from endpoint import SortBazaar
 from endpoint import GetHistory
+from endpoint import GetHistoryLimited
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'mysql_db_container'
@@ -32,6 +33,12 @@ def sortBazaar():
 @app.route('/history/<productId>', methods=['GET'])
 def getHistory(productId):
     response = GetHistory.getHistory(productId, mysql)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return(response)
+
+@app.route('/historylimited/<productId>', methods=['GET'])
+def getHistoryLimited(productId):
+    response = GetHistoryLimited.getHistory(productId, mysql)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return(response)
 
