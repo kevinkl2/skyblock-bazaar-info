@@ -5,7 +5,7 @@
 2) mysql_db folder
 
 
-
+```
 1) centos 8 image
 2) dnf -y update
 3) dnf install 'dnf-command(config-manager)' && dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
@@ -21,3 +21,4 @@ lxc.cap.drop:
 10) /usr/bin/dockerd -H unix://
 11) dnf install -y git
 12) yum -y install openssh-server && service sshd start
+```
